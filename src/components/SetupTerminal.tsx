@@ -80,9 +80,9 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
       try {
         const result = await enhanceImageWithGemini(base64Data, selectedFile.type);
         setEnhancedFileUrl(result);
-      } catch (err) {
+      } catch (err: any) {
         console.error("Enhancement failed", err);
-        alert("Enhancement failed. Please check the console and try again.");
+        alert(`Enhancement failed: ${err.message || 'Unknown error'}. Check console or ensure STABILITY_API_KEY is set in Vercel.`);
       } finally {
         setIsEnhancing(false);
       }
