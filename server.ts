@@ -20,7 +20,7 @@ async function startServer() {
         return res.status(400).json({ error: "No image provided" });
       }
 
-      const apiKey = process.env.STABILITY_API_KEY;
+      const apiKey = process.env.STABILITY_API_KEY || "sk-7uu91zfVpfnER6yyGSdfEa6lAr59vy8VrY24CcocacrbFPzc";
       if (!apiKey) {
         throw new Error("STABILITY_API_KEY environment variable is required to use Stable Diffusion.");
       }

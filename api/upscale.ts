@@ -20,7 +20,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: "No image provided" });
     }
 
-    const apiKey = process.env.STABILITY_API_KEY;
+    const apiKey = process.env.STABILITY_API_KEY || "sk-7uu91zfVpfnER6yyGSdfEa6lAr59vy8VrY24CcocacrbFPzc";
     if (!apiKey) {
       return res.status(500).json({ error: "Missing STABILITY_API_KEY. Please add the STABILITY_API_KEY environment variable in your Vercel project settings." });
     }
