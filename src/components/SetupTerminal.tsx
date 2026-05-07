@@ -82,7 +82,7 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
         setEnhancedFileUrl(result);
       } catch (err) {
         console.error("Enhancement failed", err);
-        alert("Enhancement failed. Please check the API key, console and try again.");
+        alert("Enhancement failed. Please check the console and try again.");
       } finally {
         setIsEnhancing(false);
       }
