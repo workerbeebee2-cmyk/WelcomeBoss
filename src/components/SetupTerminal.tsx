@@ -223,7 +223,7 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
                   className="mt-2 w-full flex items-center justify-center gap-2 bg-black border border-intel-orange/50 hover:bg-intel-orange/20 hover:border-intel-orange text-intel-orange py-2 px-3 font-mono uppercase tracking-widest transition-colors font-bold text-[10px] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isEnhancing ? <Loader2 className="w-3 h-3 animate-spin mx-1" /> : <Wand2 className="w-3 h-3" />}
-                  {isEnhancing ? 'ENHANCING VIA STABLE DIFFUSION API...' : 'ENHANCE PHOTO (STABLE DIFFUSION API)'}
+                  {isEnhancing ? 'ENHANCING VIA DEEPAI SUPER RESOLUTION...' : 'ENHANCE PHOTO (DEEPAI SUPER RESOLUTION)'}
                 </button>
               )}
             </div>
