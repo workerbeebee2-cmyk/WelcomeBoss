@@ -2,7 +2,6 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import multer from "multer";
-import FormData from "form-data";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -30,7 +29,8 @@ async function startServer() {
       const imageBuffer = Buffer.from(base64Data, 'base64');
 
       const formData = new FormData();
-      formData.append("image", imageBuffer, { filename: "image.png", contentType: "image/png" });
+      const blob = new Blob([imageBuffer], { type: "image/png" });
+      formData.append("image", blob, "image.png");
       if (prompt) {
         formData.append("prompt", prompt);
       }
@@ -40,10 +40,9 @@ async function startServer() {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
-          Accept: "image/*",
-          ...formData.getHeaders()
+          Accept: "image/*"
         },
-        body: formData as any,
+        body: formData,
       });
 
       if (!response.ok) {
