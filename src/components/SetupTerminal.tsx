@@ -11,9 +11,9 @@ export const BACKGROUND_OPTIONS = [
 
 export const AUDIO_OPTIONS = [
   { id: 'deep-space', name: 'Deep Space Ambient', url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=deep-space-110842.mp3' },
-  { id: 'deep-drone', name: 'Deep Bass Drone', url: 'https://actions.google.com/sounds/v1/science_fiction/spaceship_engine.ogg' },
-  { id: 'drone', name: 'Encrypted Drone', url: 'https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=suspense-dark-ambient-122248.mp3' },
-  { id: 'pulse', name: 'Tactical Pulse', url: 'https://actions.google.com/sounds/v1/science_fiction/telemetry_fast.ogg' },
+  { id: 'deep-drone', name: 'Deep Bass Drone', url: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Alex-Productions_-_Deep_%28Dark_Ambient_Background_music%29.oga' },
+  { id: 'drone', name: 'Encrypted Drone', url: 'https://upload.wikimedia.org/wikipedia/commons/5/55/Dreamstate_Logic_-_Zero_Point_%28space_ambient%2C_dark_ambient%29.ogg' },
+  { id: 'pulse', name: 'Tactical Pulse', url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Alex-Productions_-_Hidden_%28Aggressive_Electro_Cyberpunk_Midtempo%29.opus' },
   { id: 'custom', name: 'Custom Audio Upload', url: null }
 ];
 
