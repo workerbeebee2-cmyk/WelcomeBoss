@@ -180,7 +180,7 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
               transition={{ delay: 1.2, duration: 1.5 }}
               className="flex-1 flex justify-center w-full"
             >
-              <div className={`crosshair-container intel-card p-2 transform rotate-1 hover:rotate-0 transition-transform duration-700 w-full max-w-[320px] lg:max-w-[450px] xl:max-w-[550px] aspect-[3/4] ${glitchType === 'burst-4' ? '!overflow-visible' : 'overflow-hidden'} ${glitchType?.startsWith('burst') ? `glitch-${glitchType}` : glitchType === 'micro' ? 'glitch-micro' : ''}`}>
+              <div className={`crosshair-container intel-card p-2 transform rotate-1 hover:rotate-0 transition-transform duration-700 w-full max-w-[270px] lg:max-w-[380px] xl:max-w-[465px] aspect-[3/4] ${glitchType === 'burst-4' ? '!overflow-visible' : 'overflow-hidden'} ${glitchType?.startsWith('burst') ? `glitch-${glitchType}` : glitchType === 'micro' ? 'glitch-micro' : ''}`}>
                 <div className="crosshair-inner-before" />
                 <div className="crosshair-inner-after" />
                 <div className="absolute inset-0 border border-intel-orange/20 pointer-events-none z-20 m-2" />
