@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, X, UserPlus, Play, Music, MonitorPlay, Monitor, Trash2 } from 'lucide-react';
+import { X, UserPlus, Play, Music, MonitorPlay, Monitor, Trash2 } from 'lucide-react';
 import type { Guest } from '../App';
 
 export const BACKGROUND_OPTIONS = [
@@ -31,7 +31,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
   const [nameInput, setNameInput] = useState('');
   const [roleInput, setRoleInput] = useState('');
   const [departmentInput, setDepartmentInput] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [audioSelection, setAudioSelection] = useState<string>('deep-space');
   const [customAudioFile, setCustomAudioFile] = useState<File | null>(null);
   const [companyLogoFile, setCompanyLogoFile] = useState<File | null>(null);
@@ -63,17 +62,13 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
     };
   }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFile(e.target.files?.[0] || null);
-  };
-
   const handleAddGuest = () => {
     if (!nameInput.trim()) return;
     
     const newGuest: Guest = {
       id: crypto.randomUUID(),
       name: nameInput.trim(),
-      photoUrl: selectedFile ? URL.createObjectURL(selectedFile) : null,
+      photoUrl: null,
       role: roleInput.trim() || undefined,
       department: departmentInput.trim() || undefined
     };
@@ -82,7 +77,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
     setNameInput('');
     setRoleInput('');
     setDepartmentInput('');
-    setSelectedFile(null);
   };
 
   const handleRemoveGuest = (id: string) => {
@@ -161,39 +155,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-mono mb-1 text-gray-500">DOSSIER PHOTO (OPTIONAL)</label>
-              <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-intel-border border-dashed cursor-pointer bg-intel-dark hover:bg-black/50 hover:border-intel-orange transition-colors relative overflow-hidden group">
-                  {selectedFile ? (
-                    <div className="flex flex-col items-center justify-center w-full h-full relative z-10">
-                      <img 
-                        src={URL.createObjectURL(selectedFile)} 
-                        alt="Thumbnail" 
-                        className="h-16 w-16 object-cover border border-intel-border rounded mb-2 group-hover:border-intel-orange transition-colors" 
-                      />
-                      <p className="text-xs text-gray-400 group-hover:text-intel-orange font-mono text-center px-2 truncate w-full max-w-[250px] transition-colors">
-                        {selectedFile.name}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6 relative z-10">
-                      <Upload className="w-6 h-6 mb-2 text-gray-400 group-hover:text-intel-orange transition-colors" />
-                      <p className="text-sm text-gray-400 font-mono text-center px-4 group-hover:text-white transition-colors">
-                        Select from local library
-                      </p>
-                    </div>
-                  )}
-                  <input 
-                    type="file" 
-                    className="hidden" 
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                </label>
-              </div>
-            </div>
-
             <button 
               onClick={handleAddGuest}
               className="w-full flex items-center justify-center gap-2 bg-intel-border hover:bg-intel-orange text-white py-3 px-4 font-mono uppercase tracking-widest transition-colors font-bold text-sm"
@@ -218,7 +179,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs text-intel-orange">{String(idx + 1).padStart(2, '0')}</span>
                     <span className="font-sans font-medium">{guest.name}</span>
-                    {guest.photoUrl && <span className="text-[10px] bg-intel-border px-1 text-gray-300 rounded-xs uppercase tracking-wider font-mono">Photo</span>}
                   </div>
                   <button onClick={() => handleRemoveGuest(guest.id)} className="text-gray-500 hover:text-red-500 transition-colors">
                     <X className="w-4 h-4" />
