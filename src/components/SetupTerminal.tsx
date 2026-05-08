@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Upload, X, UserPlus, Play, Music, MonitorPlay, Monitor, Trash2, Wand2, Loader2 } from 'lucide-react';
+import { Upload, X, UserPlus, Play, Music, MonitorPlay, Monitor, Trash2 } from 'lucide-react';
 import type { Guest } from '../App';
-import { enhanceImageWithGemini } from '../services/geminiEnhance';
 
 export const BACKGROUND_OPTIONS = [
   { id: 'network', name: 'Neural Network Map' },
@@ -37,8 +36,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
   const [customAudioFile, setCustomAudioFile] = useState<File | null>(null);
   const [companyLogoFile, setCompanyLogoFile] = useState<File | null>(null);
   const [companyName, setCompanyName] = useState('');
-  const [isEnhancing, setIsEnhancing] = useState(false);
-  const [enhancedFileUrl, setEnhancedFileUrl] = useState<string | null>(null);
   
   const [isAudioMenuOpen, setAudioMenuOpen] = useState(false);
   const [isBackgroundMenuOpen, setBackgroundMenuOpen] = useState(false);
@@ -68,26 +65,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(e.target.files?.[0] || null);
-    setEnhancedFileUrl(null);
-  };
-
-  const handleEnhance = async () => {
-    if (!selectedFile) return;
-    setIsEnhancing(true);
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64Data = e.target?.result as string;
-      try {
-        const result = await enhanceImageWithGemini(base64Data, selectedFile.type);
-        setEnhancedFileUrl(result);
-      } catch (err: any) {
-        console.error("Enhancement failed", err);
-        alert(`Enhancement failed: ${err.message || 'Unknown error'}. Check console or ensure STABILITY_API_KEY is set in Vercel.`);
-      } finally {
-        setIsEnhancing(false);
-      }
-    };
-    reader.readAsDataURL(selectedFile);
   };
 
   const handleAddGuest = () => {
@@ -96,7 +73,7 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
     const newGuest: Guest = {
       id: crypto.randomUUID(),
       name: nameInput.trim(),
-      photoUrl: enhancedFileUrl ? enhancedFileUrl : (selectedFile ? URL.createObjectURL(selectedFile) : null),
+      photoUrl: selectedFile ? URL.createObjectURL(selectedFile) : null,
       role: roleInput.trim() || undefined,
       department: departmentInput.trim() || undefined
     };
@@ -106,7 +83,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
     setRoleInput('');
     setDepartmentInput('');
     setSelectedFile(null);
-    setEnhancedFileUrl(null);
   };
 
   const handleRemoveGuest = (id: string) => {
@@ -189,15 +165,15 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
               <label className="block text-xs font-mono mb-1 text-gray-500">DOSSIER PHOTO (OPTIONAL)</label>
               <div className="flex items-center justify-center w-full">
                 <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-intel-border border-dashed cursor-pointer bg-intel-dark hover:bg-black/50 hover:border-intel-orange transition-colors relative overflow-hidden group">
-                  {enhancedFileUrl || selectedFile ? (
+                  {selectedFile ? (
                     <div className="flex flex-col items-center justify-center w-full h-full relative z-10">
                       <img 
-                        src={enhancedFileUrl || URL.createObjectURL(selectedFile!)} 
+                        src={URL.createObjectURL(selectedFile)} 
                         alt="Thumbnail" 
                         className="h-16 w-16 object-cover border border-intel-border rounded mb-2 group-hover:border-intel-orange transition-colors" 
                       />
                       <p className="text-xs text-gray-400 group-hover:text-intel-orange font-mono text-center px-2 truncate w-full max-w-[250px] transition-colors">
-                        {enhancedFileUrl ? "PHOTO ENHANCED - CLICK TO CHANGE" : selectedFile!.name}
+                        {selectedFile.name}
                       </p>
                     </div>
                   ) : (
@@ -216,16 +192,6 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
                   />
                 </label>
               </div>
-              {selectedFile && !enhancedFileUrl && (
-                <button 
-                  onClick={handleEnhance}
-                  disabled={isEnhancing}
-                  className="mt-2 w-full flex items-center justify-center gap-2 bg-black border border-intel-orange/50 hover:bg-intel-orange/20 hover:border-intel-orange text-intel-orange py-2 px-3 font-mono uppercase tracking-widest transition-colors font-bold text-[10px] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isEnhancing ? <Loader2 className="w-3 h-3 animate-spin mx-1" /> : <Wand2 className="w-3 h-3" />}
-                  {isEnhancing ? 'ENHANCING VIA DEEPAI SUPER RESOLUTION...' : 'ENHANCE PHOTO (DEEPAI SUPER RESOLUTION)'}
-                </button>
-              )}
             </div>
 
             <button 
