@@ -21,7 +21,6 @@ export default function App() {
   const [isStarted, setIsStarted] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [backgroundType, setBackgroundType] = useState<string>('network');
-  const [previewBackgroundId, setPreviewBackgroundId] = useState<string | null>(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [companyLogoUrl, setCompanyLogoUrl] = useState<string | null>(null);
@@ -78,10 +77,9 @@ export default function App() {
   }, []);
 
   const renderBackground = () => {
-    const activeBg = previewBackgroundId || backgroundType;
-    if (activeBg === 'radar') return <RadarBackground />;
-    if (activeBg === 'satellite') return <SatelliteBackground />;
-    if (activeBg === 'deep-neural') return <DeepNeuralBackground />;
+    if (backgroundType === 'radar') return <RadarBackground />;
+    if (backgroundType === 'satellite') return <SatelliteBackground />;
+    if (backgroundType === 'deep-neural') return <DeepNeuralBackground />;
     return <NetworkBackground />;
   };
 
@@ -97,22 +95,16 @@ export default function App() {
           <motion.div
             key="setup"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: previewBackgroundId ? 0 : 1, 
-              y: previewBackgroundId ? 20 : 0,
-              pointerEvents: previewBackgroundId ? 'none' : 'auto'
-            }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
             transition={{ duration: 0.5 }}
-            className="flex min-h-screen items-center justify-center p-4 px-6 md:px-12 w-full transition-all duration-700"
+            className="flex min-h-screen items-center justify-center p-4 px-6 md:px-12 w-full"
           >
             <SetupTerminal 
               onStart={handleStart} 
               initialGuests={guests} 
               currentBackground={backgroundType}
               onBackgroundChange={setBackgroundType}
-              onBackgroundHover={setPreviewBackgroundId}
-              onBackgroundHoverEnd={() => setPreviewBackgroundId(null)}
             />
           </motion.div>
         ) : (

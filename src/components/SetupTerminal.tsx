@@ -24,11 +24,9 @@ interface SetupTerminalProps {
   initialGuests?: Guest[];
   currentBackground: string;
   onBackgroundChange: (bg: string) => void;
-  onBackgroundHover?: (bg: string | null) => void;
-  onBackgroundHoverEnd?: () => void;
 }
 
-export default function SetupTerminal({ onStart, initialGuests = [], currentBackground, onBackgroundChange, onBackgroundHover, onBackgroundHoverEnd }: SetupTerminalProps) {
+export default function SetupTerminal({ onStart, initialGuests = [], currentBackground, onBackgroundChange }: SetupTerminalProps) {
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [nameInput, setNameInput] = useState('');
   const [roleInput, setRoleInput] = useState('');
@@ -284,11 +282,8 @@ export default function SetupTerminal({ onStart, initialGuests = [], currentBack
                         <div 
                           key={opt.id}
                           className="px-8 py-2 text-xs font-mono text-white hover:bg-intel-orange/20 cursor-pointer"
-                          onMouseEnter={() => onBackgroundHover?.(opt.id)}
-                          onMouseLeave={() => onBackgroundHoverEnd?.()}
                           onClick={() => {
                             onBackgroundChange(opt.id);
-                            onBackgroundHoverEnd?.();
                             setBackgroundMenuOpen(false);
                           }}
                         >
