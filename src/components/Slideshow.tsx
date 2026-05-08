@@ -103,10 +103,10 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`flex flex-col ${hasPhoto ? 'lg:flex-row items-center justify-between' : 'items-center justify-center text-center'} gap-16 lg:gap-24 w-full px-8 lg:px-24`}
+          className={`flex flex-col ${hasPhoto ? 'lg:flex-row items-center justify-between' : 'items-center justify-center text-center'} gap-20 lg:gap-32 w-full px-8 lg:px-24 mx-auto max-w-[1920px]`}
         >
           {/* Main Content Area */}
-          <div className={`flex z-10 min-w-0 w-full ${hasPhoto ? 'flex-1 flex-col justify-center pr-4 lg:pr-12 xl:pl-20' : 'flex-col items-center justify-center'}`}>
+          <div className={`flex z-10 min-w-0 w-full ${hasPhoto ? 'flex-1 flex-col justify-center pr-4 lg:pr-16 xl:pl-20' : 'flex-col items-center justify-center'}`}>
             <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -131,7 +131,7 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white font-sans uppercase leading-none drop-shadow-2xl"
+                className="text-[clamp(2.5rem,6vw,6rem)] font-bold tracking-tighter text-white font-sans uppercase leading-none drop-shadow-2xl"
                 style={{
                   textShadow: '0 0 40px rgba(255,255,255,0.1)'
                 }}
@@ -145,7 +145,7 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
                  initial={{ y: 20, opacity: 0 }}
                  animate={{ y: 0, opacity: 1 }}
                  transition={{ delay: 1.0, duration: 1 }}
-                 className={`text-[clamp(3rem,8vw,9.5rem)] font-bold uppercase tracking-tighter text-white drop-shadow-2xl flex flex-wrap ${hasPhoto ? 'justify-start' : 'justify-center'} gap-x-4 max-w-full leading-[0.85]`}
+                 className={`text-[clamp(3.5rem,9vw,8rem)] font-bold uppercase tracking-tighter text-white drop-shadow-2xl flex flex-wrap ${hasPhoto ? 'justify-start' : 'justify-center'} gap-x-4 max-w-full leading-[0.85]`}
               >
                  {currentGuest.name.split(' ').map((word, i) => (
                    <span key={i} className="text-intel-orange break-words max-w-full block">
@@ -180,7 +180,7 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
               transition={{ delay: 1.2, duration: 1.5 }}
               className="flex-1 flex justify-center w-full"
             >
-              <div className={`crosshair-container intel-card p-2 transform rotate-1 hover:rotate-0 transition-transform duration-700 w-full max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] aspect-[3/4] ${glitchType === 'burst-4' ? '!overflow-visible' : 'overflow-hidden'} ${glitchType?.startsWith('burst') ? `glitch-${glitchType}` : glitchType === 'micro' ? 'glitch-micro' : ''}`}>
+              <div className={`crosshair-container intel-card p-2 transform rotate-1 hover:rotate-0 transition-transform duration-700 w-full max-w-[320px] lg:max-w-[450px] xl:max-w-[550px] aspect-[3/4] ${glitchType === 'burst-4' ? '!overflow-visible' : 'overflow-hidden'} ${glitchType?.startsWith('burst') ? `glitch-${glitchType}` : glitchType === 'micro' ? 'glitch-micro' : ''}`}>
                 <div className="crosshair-inner-before" />
                 <div className="crosshair-inner-after" />
                 <div className="absolute inset-0 border border-intel-orange/20 pointer-events-none z-20 m-2" />
