@@ -29,6 +29,10 @@ export default function SatelliteBackground() {
     let animationFrameId: number;
     let time = 0;
     
+    // Use refs outside the loop for stable values to avoid flickering
+    let currentChk = Math.random().toString(16).substring(2, 8).toUpperCase();
+    let currentKey = Math.random().toString(16).substring(2, 16).toUpperCase();
+    
     let targets: Target[] = [];
 
     const createTarget = (index: number): Target => {
@@ -250,12 +254,16 @@ export default function SatelliteBackground() {
       ctx.fillText(`SPD: ${Math.floor(320 + Math.cos(time*0.5) * 20)}kph`, cx + 45, cy + 60);
       ctx.fillText(`YAW: ${(Math.sin(time*0.2) * 5).toFixed(2)}`, cx + 45, cy + 75);
       
-      // Random Hex Strings on the left
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      // Random Hex Strings on the left - Stable drawing, changing values
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
       if (Math.floor(time * 10) % 5 === 0) {
-         ctx.fillText(`CHK: ${Math.random().toString(16).substr(2, 8).toUpperCase()}`, 70, canvas.height - 90);
-         ctx.fillText(`KEY: ${Math.random().toString(16).substr(2, 16).toUpperCase()}`, 70, canvas.height - 75);
+         currentChk = Math.random().toString(16).substring(2, 8).toUpperCase();
+         currentKey = Math.random().toString(16).substring(2, 16).toUpperCase();
       }
+      ctx.fillText(`CHK: ${currentChk}`, 70, canvas.height - 90);
+      ctx.fillText(`KEY: ${currentKey}`, 70, canvas.height - 75);
+      
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
       ctx.fillText(`SYS.STATUS: OPERATIONAL`, 70, canvas.height - 105);
 
       // Pitch Ladder (Artificial Horizon effect)
