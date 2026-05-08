@@ -103,12 +103,12 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`flex flex-col ${hasPhoto ? 'lg:flex-row items-center justify-between' : 'items-center justify-center text-center'} gap-8 lg:gap-12 w-full px-8 lg:px-24`}
+          className={`flex flex-col ${hasPhoto ? 'lg:flex-row items-center justify-between' : 'items-center justify-center text-center'} gap-16 lg:gap-24 w-full px-8 lg:px-24`}
         >
           {/* Main Content Area */}
-          <div className={`flex z-10 min-w-0 w-full ${hasPhoto ? 'flex-1 flex-col justify-center pr-4 lg:pr-12 lg:pl-12 xl:pl-32' : 'flex-col items-center justify-center'}`}>
+          <div className={`flex z-10 min-w-0 w-full ${hasPhoto ? 'flex-1 flex-col justify-center pr-4 lg:pr-12 xl:pl-20' : 'flex-col items-center justify-center'}`}>
             <motion.div
-              initial={{ x: -50, opacity: 0 }}
+              initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
               className={`flex items-center gap-3 text-intel-orange mb-6 font-mono tracking-widest text-sm w-full max-w-[280px] ${hasPhoto ? '' : 'mx-auto justify-center'}`}
@@ -178,7 +178,7 @@ export default function Slideshow({ guests, companyLogo, companyName = 'SUBJECT 
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 1.2, duration: 1.5 }}
-              className="flex-1 flex justify-center w-full lg:-translate-x-12 xl:-translate-x-32"
+              className="flex-1 flex justify-center w-full"
             >
               <div className={`crosshair-container intel-card p-2 transform rotate-1 hover:rotate-0 transition-transform duration-700 w-full max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] aspect-[3/4] ${glitchType === 'burst-4' ? '!overflow-visible' : 'overflow-hidden'} ${glitchType?.startsWith('burst') ? `glitch-${glitchType}` : glitchType === 'micro' ? 'glitch-micro' : ''}`}>
                 <div className="crosshair-inner-before" />
